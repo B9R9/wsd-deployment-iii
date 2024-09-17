@@ -50,3 +50,5 @@ volumes:
   - name: pgdata
     type: persistent
     size: 1Gi
+
+    
