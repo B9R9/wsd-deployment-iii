@@ -1,0 +1,52 @@
+services:
+  - name: postgres
+    type: database
+    databaseName: ${POSTGRES_DB}
+    user: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    plan: free
+    properties:
+      engine: postgres
+      version: 13
+
+  - name: flyway
+    type: web
+    env: docker
+    dockerfilePath: Dockerfile.flyway
+    buildCommand: ""
+    startCommand: >
+      flyway -url=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+             -user=${FLYWAY_USER}
+             -password=${FLYWAY_PASSWORD}
+             -connectRetries=60
+             -baselineOnMigrate=true
+             migrate
+    dependsOn:
+      - postgres
+
+  - name: flyway-repair
+    type: web
+    env: docker
+    dockerfilePath: Dockerfile.flyway
+    buildCommand: ""
+    startCommand: >
+      flyway -url=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+             -user=${FLYWAY_USER}
+             -password=${FLYWAY_PASSWORD}
+             repair
+    dependsOn:
+      - postgres
+
+  - name: adminer
+    type: web
+    env: docker
+    dockerfilePath: Dockerfile.adminer
+    buildCommand: ""
+    startCommand: ""
+    ports:
+      - 8080
+
+volumes:
+  - name: pgdata
+    type: persistent
+    size: 1Gi
