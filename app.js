@@ -1,6 +1,6 @@
 import * as messageService from "./services/messageService.js";
-import { serve } from "deps.js";
-import { configure, renderFile } from "deps.js";
+import { serve } from "./deps.js";
+import { configure, renderFile } from "./deps.js";
 
 configure({
     views: `${Deno.cwd()}/views/`,
