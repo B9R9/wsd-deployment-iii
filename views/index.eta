@@ -16,7 +16,7 @@
     <label for="message">Message:</label>
     <input type="text" id="message" name="message" required />
     <br />
-    <button type="submit">Send</button>
+    <input type="submit" name="submit" />
   </form>
 
   <!-- Display the messages -->
