@@ -1,4 +1,4 @@
-import postgres from "https://deno.land/x/postgresjs@v3.4.4/mod.js";
+import postgres from "../deps.js";
 
 // const sql = postgres({
 // 	host: "localhost",
@@ -8,6 +8,11 @@ import postgres from "https://deno.land/x/postgresjs@v3.4.4/mod.js";
 // 	port: 5432,
 // });
 
-const sql = postgres({});
+let sql;
+if (Deno.env.get("DATABASE_URL")) {
+    sql = postgres(Deno.env.get("DATABASE_URL"));
+} else {
+    sql = postgres({});
+}
 
 export { sql };
