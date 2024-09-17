@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Chat</title>
+</head>
+<body>
+  <h1>Simple Chat</h1>
+
+  <!-- Form for posting new messages -->
+  <form method="POST">
+    <label for="sender">Name:</label>
+    <input type="text" id="sender" name="sender" required />
+    <br />
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message" required />
+    <br />
+    <button type="submit">Send</button>
+  </form>
+
+  <!-- Display the messages -->
+  <ul>
+    <% if (it.messages && it.messages.length > 0) { %>
+      <% it.messages.forEach((msg) => { %>
+        <li><%= msg.sender %>: <%= msg.message %></li>
+      <% }); %>
+    <% } else { %>
+      <li>No messages yet.</li>
+    <% }; %>
+  </ul>
+</body>
+</html>
